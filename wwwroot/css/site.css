@@ -1,0 +1,48 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: darkred;
+}
+
+.header {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.container {
+    text-align: center;
+}
+
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+}
+
+.user-section {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+#userList, #userForm, #userDelete {
+    flex: 1;
+    margin: 0 10px;
+}
+
+h1, h3, p {
+    color: white;
+}
