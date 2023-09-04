@@ -14,37 +14,15 @@ public class UserController : ControllerBase
         _dbContext = dbContext;
     }
 
-    //[HttpGet]
-    //public async Task<ActionResult<IEnumerable<User>>> GetAllUsersAsync()
-    //{
-    //    if (_dbContext.Users == null)
-    //    {
-    //        return NotFound();
-    //    }
-    //    return await _dbContext.Users.Include(u => u.UserGroups).ToListAsync();
-    //}
-
     [HttpGet]
-    public ActionResult<IEnumerable<User>> GetAllUsers()
+    public async Task<ActionResult<IEnumerable<User>>> GetAllUsersAsync()
     {
-        // Replace the following code with your actual data retrieval logic
-        List<User> users = _dbContext.Users.ToList();
-
-        if (users != null && users.Count > 0)
-        {
-            var responseData = new
-            {
-                users = users
-            };
-
-            return Ok(responseData);
-        }
-        else
+        if (_dbContext.Users == null)
         {
             return NotFound();
         }
+        return await _dbContext.Users.Include(u => u.UserGroups).ToListAsync();
     }
-
 
     [HttpGet("{id}")]
     public async Task<ActionResult<User>> GetUserAsync(int id)
