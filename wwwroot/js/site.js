@@ -7,21 +7,34 @@
             url: apiUrl,
             type: 'GET',
             dataType: 'json',
-            success: function (data) {
-                console.log('API Response:', data);
+            success: function (response) {
+                // Check if the response structure is as expected
+                if (response.$values && Array.isArray(response.$values)) {
+                    const users = response.$values;
+                    if (users.length > 0) {
+                        // Find the table body
+                        const tbody = $('.user-table tbody');
+                        if (tbody.length > 0) {
+                            tbody.empty(); // Clear any existing rows
 
-                $('#userList').empty();
-
-                if (data && Array.isArray(data.users) && data.users.length > 0) {
-                    data.users.forEach(function (user) {
-                        $('#userList').append('<div>' + user.username + '</div>');
-                    });
+                            // Populate the table with user data
+                            users.forEach(function (user) {
+                                const row = $('<tr>');
+                                $('<td>').text(user.userId).appendTo(row);
+                                $('<td>').text(user.username).appendTo(row);
+                                row.appendTo(tbody);
+                            });
+                        }
+                    } else {
+                        $('#listOfUsersMessage').text('No users found.');
+                    }
                 } else {
-                    $('#listOfUsersMessage').text('No Users found.');
+                    $('#listOfUsersMessage').text('Invalid API Response.');
                 }
             },
             error: function (error) {
                 $('#listOfUsersMessage').text('An error occurred while fetching users.');
+                console.error('AJAX Error:', error);
             }
         });
     }
