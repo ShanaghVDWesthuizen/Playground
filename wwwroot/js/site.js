@@ -8,20 +8,25 @@
             type: 'GET',
             dataType: 'json',
             success: function (response) {
-                // Check if the response structure is as expected
                 if (response.$values && Array.isArray(response.$values)) {
                     const users = response.$values;
                     if (users.length > 0) {
-                        // Find the table body
+
                         const tbody = $('.user-table tbody');
                         if (tbody.length > 0) {
-                            tbody.empty(); // Clear any existing rows
+                            tbody.empty();
 
-                            // Populate the table with user data
                             users.forEach(function (user) {
                                 const row = $('<tr>');
                                 $('<td>').text(user.userId).appendTo(row);
                                 $('<td>').text(user.username).appendTo(row);
+
+                                const deleteButton = $('<button>').text('Delete').click(function () {
+                                    deleteUser(user.userId);
+                                });
+
+                                $('<td>').append(deleteButton).appendTo(row);
+
                                 row.appendTo(tbody);
                             });
                         }
@@ -45,7 +50,6 @@
     $('#addUser').click(function () {
         const userName = $('#userName').val();
 
-        // Create a new user object
         const newUser = {
             username: userName
         };
@@ -65,18 +69,20 @@
         });
     });
 
-    // Event handler for the "Delete User" button
-    $('#deleteUser').click(function () {
-        const userIdToDelete = $('#deleteUserId').val();
-
-        // Make a DELETE request to delete the user
-        $.ajax({
-            url: apiUrl + '/' + userIdToDelete,
-            type: 'DELETE',
-            success: function () {
-                $('#deleteSuccessMessage').text('User has been deleted successfully.');
-            }
-        });
-    });
-
+    function deleteUser(userId) {
+        if (confirm('Are you sure you want to delete this user?')) {
+            // Send an HTTP DELETE request to delete the user
+            $.ajax({
+                url: apiUrl + '/' + userId,
+                type: 'DELETE',
+                success: function () {
+                    $('#userRow_' + userId).remove();
+                    getAllUsers();
+                },
+                error: function (error) {
+                    console.error('Error deleting user:', error);
+                }
+            });
+        }
+    }
 });

@@ -20,31 +20,33 @@
         </div>
     </div>
     <div class="user-section">
-        <div id="userList">
-            <h3>User List</h3>
-        <table class="user-table">
-            <thead>
-                <tr>
-                    <th>User ID</th>
-                    <th>Username</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-            <p id="listOfUsersMessage"></p>
-        </div>
         <div id="userForm">
             <h3>Add a new User 📝</h3>
             <input type="text" id="userName" placeholder="Enter User Name">
             <button id="addUser">Add User</button>
             <p id="addSuccessMessage"></p>
         </div>
-        <div id="userDelete">
-            <h3>Delete an existing User 🗑️</h3>
-            <input type="number" id="deleteUserId" placeholder="Enter User ID to Vanish">
-            <button id="deleteUser">Banish User</button>
-            <p id="deleteSuccessMessage"></p>
+        <div id="userList">
+            <h3>User List</h3>
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Username</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button onclick="deleteUser()">Delete 🗑️</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p id="listOfUsersMessage"></p>
         </div>
     </div>
 
