@@ -19,35 +19,33 @@
             <img src="~/images/KingPriceLogo.jpg" alt="ASP.NET" class="img-responsive" />
         </div>
     </div>
-    <div class="user-section">
-        <div id="userForm">
-            <h3>Add a new User 📝</h3>
-            <input type="text" id="userName" placeholder="Enter User Name">
-            <button id="addUser">Add User</button>
-            <p id="addSuccessMessage"></p>
-        </div>
-        <div id="userList">
-            <h3>User List</h3>
-            <table class="user-table">
-                <thead>
-                    <tr>
-                        <th>User ID</th>
-                        <th>Username</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <button onclick="deleteUser()">Delete 🗑️</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <p id="listOfUsersMessage"></p>
-        </div>
+    <div id="userForm">
+        <h3>Add a new User 📝</h3>
+        <input type="text" id="userName" placeholder="Enter User Name">
+        <button id="addUser">Add User</button>
+        <p id="addSuccessMessage"></p>
+    </div>
+    <div id="userList">
+        <h3>User List</h3>
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button onclick="deleteUser()">Delete 🗑️</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p id="listOfUsersMessage"></p>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
