@@ -11,7 +11,6 @@
                 if (response.$values && Array.isArray(response.$values)) {
                     const users = response.$values;
                     if (users.length > 0) {
-
                         const tbody = $('.user-table tbody');
                         if (tbody.length > 0) {
                             tbody.empty();
@@ -21,11 +20,21 @@
                                 $('<td>').text(user.userId).appendTo(row);
                                 $('<td>').text(user.username).appendTo(row);
 
-                                const deleteButton = $('<button>').text('Delete').click(function () {
-                                    deleteUser(user.userId);
-                                });
+                                const editButton = $('<button>')
+                                    .addClass('btn btn-secondary edit-button')
+                                    .text('Edit 📝')
+                                    .click(function () {
+                                        editUser(user.userId);
+                                    });
 
-                                $('<td>').append(deleteButton).appendTo(row);
+                                const deleteButton = $('<button>')
+                                    .addClass('btn btn-danger delete-button')
+                                    .text('Delete 🗑️')
+                                    .click(function () {
+                                        deleteUser(user.userId);
+                                    });
+
+                                $('<td>').append(editButton, deleteButton).appendTo(row);
 
                                 row.appendTo(tbody);
                             });
@@ -68,6 +77,45 @@
             }
         });
     });
+
+    function editUser(userId) {
+        $('#editUserModal').modal('show');
+
+        const userData = {
+            userId: userId,
+            username: '',
+        };
+
+        // Populate the username input field with initial data
+        $('#editUsernameInput').val(userData.username);
+
+        $('#saveEditUserBtn').click(function (event) {
+            event.preventDefault();
+
+            const updatedUsername = $('#editUsernameInput').val();
+
+            // Create an updated user data object
+            const updatedUserData = {
+                userId: userId,
+                username: updatedUsername,
+            };
+
+            // Send an HTTP PUT request to update the user data
+            $.ajax({
+                url: `${apiUrl}/${userId}`,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(updatedUserData),
+                success: function () {
+                    $('#editUserModal').modal('hide');
+                    getAllUsers();
+                },
+                error: function (error) {
+                    console.error('Error updating user:', error);
+                },
+            });
+        });
+    }
 
     function deleteUser(userId) {
         if (confirm('Are you sure you want to delete this user?')) {

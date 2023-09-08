@@ -39,11 +39,11 @@ body {
 }
 
 h1, h3, p {
-    color: white;
+    color: darkred;
 }
 
 .user-table {
-    color: white;
+    color: darkred;
     margin: 0 auto;
 }
 
